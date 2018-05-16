@@ -1,34 +1,33 @@
-library(shiny)
+library(shiny) 
 shinyServer(function(input, output) {
     model <- reactive({
         brushed_data <- brushedPoints(chicago, input$brush1,
-                                      xvar = "temp", yvar = "poll")
+            xvar = "temp", yvar = "poll")
         if(nrow(brushed_data) < 2){
-            return(NULL)
+            return(NULL) 
         }
-        lm(poll ~ temp, data = brushed_data)
+        lm(poll ~ temp, data = brushed_data) 
     })
-    output$slopeOut <- renderText({
+    output$slopeOut <- renderText({ 
         if(is.null(model())){
             "No Model Found"
         } else {
-            model()[[1]][2]
+            model()[[1]][2] 
         }
     })
-    
-    output$intOut <- renderText({
+    output$intOut <- renderText({ 
         if(is.null(model())){
             "No Model Found"
         } else {
-            model()[[1]][1]
+            model()[[1]][1] 
         }
     })
     output$plot1 <- renderPlot({
-        plot(chicago$temp, chicago$poll, xlab = "Temperature",
-             ylab = "Particle Pollution", main = "Relationship between temperature and particle pollution in Chicago 1987 - 2005",
-             cex = 1.5, pch = 16, col = "darkgreen", bty = "n")
+        plot(chicago$temp, chicago$poll, xlab = "Temperature", 
+             ylab = "Pollution", main = "Relationship between pollution and temperature", 
+             cex = 1.5, col = "dark green", pch = 16, bty = "n")
         if(!is.null(model())){
-            abline(model(), col = "red", lwd = 2)
+            abline(model(), col = "blue", lwd = 2) 
         }
     })
 })
