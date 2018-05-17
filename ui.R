@@ -18,19 +18,26 @@ chicago <- chicago[!is.na(chicago$Temperature),]
 
 
 library(shiny)
+library(datasets)
+require(graphics)
 
-shinyUI(fluidPage( 
+shinyUI(fluidPage(
+    headerPanel(img(src = "ddp.png")),
+    tags$hr(),            
     tags$h1("Interactive Pollution and Temperature App"),
-    tags$h3("Part of the Coursera Developing Data Products course"),
-    tags$p("This Shiny app looks at the relationship between temperature and fine particle pollution, measured on a daily basis between 1987 and 2005 in the city of Chicago, USA"),
+    tags$br(),
+    tags$h4("Final project of the Coursera Developing Data Products course"),
+    tags$br(),
+    tags$p("This Shiny app looks at the relationship between temperature and air pollution, measured on a daily basis between 1987 and 2005 in the city of Chicago, USA"),
     tags$p("More detail of the data can be found at the link below"),
     tags$a(href = "https://www.airnow.gov/index.cfm?action=aqibasics.particle", "Particle Pollution"),
     tags$br(),
     tags$hr(),
-    tags$h3("Instructions"),
-    tags$p("The example below fits a linear model for the selected points and then draws a line of best fit for the resulting model."),
+    tags$h4("Instructions"),
+    tags$p("The example below fits a linear regression model for the selected variables."),
+    tags$p("Select a pollutant from the list"),
     tags$p("Using your mouse, click and drag to 'draw' a selection of points in the chart below."),
-    tags$p("Once you have made a selection, you will see the regression line, and the associated slope and intercept values for that selection, in the widget box on the left."),
+    tags$p("Once you have made a selection, you will see the regression line, and the associated slope and intercept values for that selection, in the box on the left."),
     tags$p("If you select an area with no points, you will see a 'No Model Found' message instead."),
     tags$p("If you do manage to get an error message, just right-click and hit 'reload'."),
     tags$p("Have fun!"),
@@ -39,8 +46,7 @@ shinyUI(fluidPage(
     titlePanel("Explore Linear Models"),
     sidebarLayout(
         sidebarPanel(
-            h3("Widget Box"),
-            tags$br(),
+            selectInput('x', label = 'Pollutant', selected ='Fine_Particle', choices = names(chicago[7:9])),
             h4("Slope"),
             textOutput("slopeOut"),
             h4("Intercept"),
