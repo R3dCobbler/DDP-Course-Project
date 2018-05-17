@@ -20,10 +20,11 @@ chicago <- chicago[!is.na(chicago$Temperature),]
 library(shiny)
 
 shinyUI(fluidPage( 
-    tags$h1("Developing Data Products Course Project"),
-    tags$p("This Shiny app looks at the relationship between temperature and ozone pollution, measured on a daily basis between 1987 and 2005 in the city of Chicago, USA"),
+    tags$h1("Interactive Pollution and Temperature App"),
+    tags$h3("Part of the Coursera Developing Data Products course"),
+    tags$p("This Shiny app looks at the relationship between temperature and fine particle pollution, measured on a daily basis between 1987 and 2005 in the city of Chicago, USA"),
     tags$p("More detail of the data can be found at the link below"),
-    tags$a(href = "https://www.airnow.gov/index.cfm?action=aqibasics.particle", "Chicago Data"),
+    tags$a(href = "https://www.airnow.gov/index.cfm?action=aqibasics.particle", "Particle Pollution"),
     tags$br(),
     tags$hr(),
     tags$h3("Instructions"),
@@ -38,9 +39,11 @@ shinyUI(fluidPage(
     titlePanel("Explore Linear Models"),
     sidebarLayout(
         sidebarPanel(
-            h3("Slope"),
+            h3("Widget Box"),
+            tags$br(),
+            h4("Slope"),
             textOutput("slopeOut"),
-            h3("Intercept"),
+            h4("Intercept"),
             textOutput("intOut")
         ),
         mainPanel(
@@ -48,7 +51,9 @@ shinyUI(fluidPage(
                 id = "brush1"
             ))
         )
-    )
+        ),
+    tags$hr(),
+    tags$p("Author: Mick Sheahan, May 17th 2018")
 ))
 
 
