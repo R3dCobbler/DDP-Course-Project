@@ -1,5 +1,5 @@
 library(dplyr)
-library(ggplot2)
+
 chicago <- readRDS("chicago.rds")
 
 chicago <- select(chicago, tmpd:pm25tmean2, pm10tmean2, o3tmean2) %>%
@@ -8,7 +8,7 @@ chicago <- select(chicago, tmpd:pm25tmean2, pm10tmean2, o3tmean2) %>%
     mutate(Fine_Particle = pm25 - mean(pm25, na.rm = TRUE),
            Dust_Particle = pm10 - mean(pm10, na.rm = TRUE),
            Ozone = o3 - mean(o3, na.rm = TRUE))
-    
+
 head(chicago)
 
 chicago <- chicago[!is.na(chicago$Fine_Particle),]
@@ -21,7 +21,7 @@ library(shiny)
 
 shinyUI(fluidPage( 
     tags$h1("Developing Data Products Course Project"),
-    tags$p("This Shiny app looks at the relationship between temperature and fine particle pollution, measured on a daily basis between 1987 and 2005 in the city of Chicago, USA"),
+    tags$p("This Shiny app looks at the relationship between temperature and ozone pollution, measured on a daily basis between 1987 and 2005 in the city of Chicago, USA"),
     tags$p("More detail of the data can be found at the link below"),
     tags$a(href = "https://www.airnow.gov/index.cfm?action=aqibasics.particle", "Chicago Data"),
     tags$br(),
@@ -36,21 +36,20 @@ shinyUI(fluidPage(
     tags$hr(),
     
     titlePanel("Explore Linear Models"),
-  sidebarLayout(
-    sidebarPanel(
-      h3("Slope"),
-      textOutput("slopeOut"),
-      h3("Intercept"),
-      textOutput("intOut")
-    ),
-    mainPanel(
-      plotOutput("plot1", brush = brushOpts(
-        id = "brush1"
-      ))
+    sidebarLayout(
+        sidebarPanel(
+            h3("Slope"),
+            textOutput("slopeOut"),
+            h3("Intercept"),
+            textOutput("intOut")
+        ),
+        mainPanel(
+            plotOutput("plot1", brush = brushOpts(
+                id = "brush1"
+            ))
+        )
     )
-  )
 ))
-
 
 
     
